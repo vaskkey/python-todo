@@ -33,3 +33,18 @@ class AbstractDb:
             task(Task): Task we want to write to the db.
         """
         pass
+
+    @abstractmethod
+    def set_checked(self, idx: int, status: bool):
+        """Gets element by index and sets its status to value it gets"""
+        pass
+
+    @abstractmethod
+    def remove(self, idx):
+        """Removes a task from the database"""
+        pass
+
+    @abstractmethod
+    def clear(self):
+        """Clears the database"""
+        pass

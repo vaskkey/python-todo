@@ -58,6 +58,32 @@ class JsonDb(AbstractDb):
 
         return len(contents["tasks"]) - 1
 
+    def set_checked(self, idx: int, status: bool):
+        """
+        Gets element by index and sets its "done" to "status" it gets
+
+        Args:
+            idx(int): Index of a task we want to modify.
+            status(bool): Value we want to set
+        """
+        content = self.read_all()
+
+        if idx < len(content["tasks"]):
+            content["tasks"][idx]["done"] = status
+
+        self.__write_all(content)
+
+
+    def clear(self):
+        """Clears the database by setting the file to default contents"""
+        self.__write_all({"tasks": []})
+
+    def remove(self, idx):
+        """Removes the element from the database"""
+        contents = self.read_all()
+        contents["tasks"].pop(idx)
+        self.__write_all(contents)
+
     def __create_if_doesnt_exist(self):
         """If our DB file doesn't exist - create it."""
         if not os.path.exists(self.db_path):
